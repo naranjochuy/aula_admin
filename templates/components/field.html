@@ -1,0 +1,49 @@
+{% if field.field.widget.input_type == "checkbox" %}
+    <div class="form-group row pb-2">
+        <label class="col-lg-3 control-label text-lg-end pt-2 col-lg-3">
+            {{ field.label }}
+        </label>
+        <div class="col-lg-9">
+            <div class="switch switch-sm switch-dark">{{ field }}</div>
+            {% for error in field.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </div>
+    </div>
+{% elif field.field.widget.input_type == "file" %}
+    <div class="form-group row pb-4">
+        <label class="col-lg-3 control-label text-lg-end pt-2" for="id_photo">{{ field.label }}</label>
+        <div class="col-lg-6">
+            <div class="fileupload fileupload-new" data-provides="fileupload">
+                <div class="input-append">
+                    <div class="uneditable-input">
+                        <i class="fas fa-file fileupload-exists"></i>
+                        <span class="fileupload-preview"></span>
+                    </div>
+                    <span class="btn btn-default btn-file" style="margin-left: 0;">
+                        <span class="fileupload-exists">Cambiar</span>
+                        <span class="fileupload-new">Seleccionar archivo</span>
+                        {{ field }}
+                    </span>
+                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remover</a>
+                </div>
+            </div>                        
+            {% for error in field.errors %}
+            <label class="error">{{ error}}</label>
+            {% endfor %}
+            <small class="form-text text-muted">{{ field.help_text }}</small>
+        </div>
+    </div>
+{% else %}
+    <div class="form-group row pb-4">
+        <label class="col-lg-3 control-label text-lg-end pt-2">
+            {{ field.label }}
+        </label>
+        <div class="col-lg-6">
+            {{ field }}
+            {% for error in field.errors %}
+                <label class="error">{{ error }}</label>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

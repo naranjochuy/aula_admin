@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Admin Aula 286{% endblock %}
+
+{% block extra_css %}{% endblock %}
+
+{% block page_header %}Eliminar categoría{% endblock %}
+
+{% block breadcrumbs %}
+    <li><span><a href="{% url "modalities:category_list" %}">Categorías</a></span></li>
+    <li><span>Eliminar</span></li>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col">
+            <section class="card">
+                <div class="card-body">
+                    <div class="form-horizontal form-bordered">
+						<div class="form-group row pb-4">
+                        	<h3 class="text-lg-center">¿Estás seguro de eliminar la siguiente categoría?</h3>
+                      	</div>
+
+						{% for label, value, type in item.get_detail_fields %}
+							{% include "components/detail/field.html" with label=label value=value type=type %}
+					  	{% endfor %}
+
+                		<form method="post" action="{% url 'modalities:category_delete' item.id %}">
+                        	{% csrf_token %}
+                        	<a class="btn btn-danger mb-2" href="{% url 'modalities:category_list' %}" >No</a>
+                        	<button class="btn btn-primary mb-2" type="submit">Sí</button>
+                    	</form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'administration/vendor/autosize/autosize.js' %}" defer></script>
+    <script src="{% static 'administration/vendor/bootstrap-fileupload/bootstrap-fileupload.min.js' %}" defer></script>
+    <script src="{% static 'administration/vendor/ios7-switch/ios7-switch.js' %}" defer></script>
+{% endblock %}

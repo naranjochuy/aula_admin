@@ -1,0 +1,15 @@
+<th{% if th_class %} class="{{ th_class }}"{% endif %}>
+    {% if current_order == field %}
+        <a href="?{% if querystring_no_ordering %}{{ querystring_no_ordering }}&{% endif %}ordering=-{{field}}">
+            {{ label }} ▲
+        </a>
+    {% elif current_order == '-'|add:field %}
+          <a href="?{% if querystring_no_ordering %}{{ querystring_no_ordering }}&{% endif %}ordering={{field}}">
+            {{ label }} ▼
+        </a>
+    {% else %}
+        <a href="?{% if querystring_no_ordering %}{{ querystring_no_ordering }}&{% endif %}ordering={{field}}">
+            {{ label }}
+        </a>
+    {% endif %}
+</th>

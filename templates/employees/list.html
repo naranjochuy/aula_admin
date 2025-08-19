@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Aula 286{% endblock %}
+
+{% block extra_css %}{% endblock %}
+
+{% block page_header %}Lista de empleados{% endblock %}
+
+{% block breadcrumbs %}
+    <li><span>Empleados</span></li>
+{% endblock %}
+
+{% block content %}
+    {% include "components/messages.html" %}
+    {% include "components/list/btn_create.html" with link="employees:create" %}
+
+    <div class="row">
+        <div class="col">
+            <section class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="dataTables_length" id="datatable-details_length">
+                                <form method="get">
+									{% if current_order %}
+										<input type="hidden" name="ordering" value="{{ current_order }}">
+								  	{% endif %}
+                                    <div class="row form-group">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                            	<label class="col-form-label">{{ search_form.q.label }}</label>
+                                            	{{ search_form.q }}
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="form-group">
+                                            	<label class="col-form-label">{{ search_form.commission_general_public.label}}</label>
+                                            	{{ search_form.commission_general_public }}
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="form-group">
+                                            	<label class="col-form-label">{{ search_form.is_active.label }}</label>
+                                            	{{ search_form.is_active }}
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 justify-right">
+                                            <div class="form-group">
+                                                <label class="col-form-label" style="visibility: hidden;">x</label><br>
+                                                <a class="btn btn-default" style="margin-right: 10px;" href="{% url "employees:list" %}">Limpiar</a>
+                                                <button type="submit" class="btn btn-primary">Filtrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-responsive-lg table-bordered table-striped table-sm mb-0">
+                            <thead>
+                                <tr>
+									{% include "components/list/th.html" with field="user__email" label="Correo electrónico" %}
+									{% include "components/list/th.html" with field="user__first_name" label="Nombre(s)" %}
+									{% include "components/list/th.html" with field="user__last_name" label="Apellidos" %}
+									{% include "components/list/th.html" with field="reference" label="Referencia" %}
+									{% include "components/list/th.html" with field="phone_number" label="Teléfono" %}
+									{% include "components/list/th.html" with field="user__is_active" label="Activo" th_class="text-center" %}
+									{% include "components/list/th.html" with field="commission_general_public" label="Comisión publico general" th_class="text-center" %}
+                                    <th class="text-center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in objects %}
+                                    <tr>
+                                        <td>{{ item.user.email }}</td>
+                                        <td>{{ item.user.first_name }}</td>
+                                        <td>{{ item.user.last_name }}</td>
+                                        <td>{{ item.reference }}</td>
+                                        <td>{{ item.phone_number }}</td>
+                                        <td class="text-center">
+                                            {{ item.user.is_active|yesno:"Sí,No" }}
+                                        </td>
+                                        <td class="text-center">
+                                            {{ item.commission_general_public|yesno:"Sí,No" }}
+                                        </td>
+                                        <td class="text-center">
+											<a data-bs-toggle="tooltip" data-bs-original-title="Ver" href="{% url 'employees:detail' item.pk %}"><i class="bx bx-file"></i></a>
+                                            <a data-bs-toggle="tooltip" data-bs-original-title="Editar" href="{% url 'employees:update' item.pk %}"><i class="bx bx-edit"></i></a>
+											<a data-bs-toggle="tooltip" data-bs-original-title="Permisos" href="{% url 'employees:permissions' item.pk %}"><i class="bx bx-key"></i></a>
+                                            <a data-bs-toggle="tooltip" data-bs-original-title="Eliminar" href="{% url 'employees:delete' item.pk %}"><i class="bx bx-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                {% empty %}
+                                    <tr><td colspan="8" class="text-center">No hay resultados.</td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+						{% include "components/list/pagination.html" %}
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}{% endblock %}

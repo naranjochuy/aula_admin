@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Aula 286{% endblock %}
+
+{% block extra_css %}{% endblock %}
+
+{% block page_header %}Lista de grupos{% endblock %}
+
+{% block breadcrumbs %}<li><span>Grupos</span></li>{% endblock %}
+
+{% block content %}
+    {% include "components/messages.html" %}
+    {% include "components/list/btn_create.html" with link="users:group_create" %}
+
+    <div class="row">
+        <div class="col">
+            <section class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="dataTables_length" id="datatable-details_length">
+                                <form method="get">
+									{% if current_order %}
+										<input type="hidden" name="ordering" value="{{ current_order }}">
+								  	{% endif %}
+                                    <div class="row form-group">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                            	<label class="col-form-label">{{ search_form.q.label }}</label>
+                                            	{{ search_form.q }}
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8 justify-right">
+                                            <div class="form-group">
+                                                <label class="col-form-label" style="visibility: hidden;">x</label><br>
+                                                <a class="btn btn-default" style="margin-right: 10px;" href="{% url "users:group_list" %}">Limpiar</a>
+                                                <button type="submit" class="btn btn-primary">Filtrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-responsive-lg table-bordered table-striped table-sm mb-0">
+                            <thead>
+                                <tr>
+                                    {% include "components/list/th.html" with field="name" label="Nombre" %}
+                                    <th class="text-center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in objects %}
+                                    <tr>
+                                        <td>{{ item.name }}</td>
+                                        <td class="text-center">
+                                            <a data-bs-toggle="tooltip" data-bs-original-title="Ver" href="{% url 'users:group_detail' item.pk %}"><i class="bx bx-file"></i></a>
+                                            <a data-bs-toggle="tooltip" data-bs-original-title="Editar" href="{% url 'users:group_update' item.pk %}"><i class="bx bx-edit"></i></a>
+                                            <a data-bs-toggle="tooltip" data-bs-original-title="Eliminar" href="{% url 'users:group_delete' item.pk %}"><i class="bx bx-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                {% empty %}
+                                    <tr><td colspan="8" class="text-center">No hay resultados.</td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+						{% include "components/list/pagination.html" %}
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}{% endblock %}

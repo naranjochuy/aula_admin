@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Admin Aula 286{% endblock %}
+
+{% block extra_css %}{% endblock %}
+
+{% block page_header %}{% if form.instance.pk %}Editar{% else %}Agregar{% endif %} sub categoría{% endblock %}
+
+{% block breadcrumbs %}
+	<li><span><a href="{% url "modalities:sub_category_list" %}">Sub categorías</a></span></li>
+	<li><span>{% if form.instance.pk %}Editar{% else %}Agregar{% endif %}</span></li>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col">
+            <section class="card">
+                <div class="card-body">
+                    <form class="form-horizontal form-bordered" method="post" novalidate>
+                        {% csrf_token %}
+                        {% include "components/messages.html" %}
+
+                        {% for field in form %}
+                            {% include "components/field.html" with field=field %}
+                        {% endfor %}
+
+                        <footer class="card-footer" style="padding-left: 0; padding-right: 0;">
+                            <div class="row justify-content-end">
+                                <div class="col-sm-9">
+                                    <input type="submit" class="btn btn-primary" value="Guardar" />
+                                </div>
+                            </div>
+                        </footer>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'administration/vendor/autosize/autosize.js' %}" defer></script>
+    <script src="{% static 'administration/vendor/ios7-switch/ios7-switch.js' %}" defer></script>
+{% endblock %}

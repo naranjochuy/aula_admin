@@ -1,0 +1,98 @@
+{% load static %}
+<!doctype html>
+<html class="fixed">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="author" content="okler.net">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{% static 'administration/vendor/bootstrap/css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'administration/vendor/animate/animate.compat.css' %}">
+        <link rel="stylesheet" href="{% static 'administration/vendor/font-awesome/css/all.min.css' %}">
+        <link rel="stylesheet" href="{% static 'administration/vendor/boxicons/css/boxicons.min.css' %}">
+        <link rel="stylesheet" href="{% static 'administration/vendor/magnific-popup/magnific-popup.css' %}">
+        <link rel="stylesheet" href="{% static 'administration/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css' %}">
+        <link rel="stylesheet" href="{% static 'administration/css/theme.css' %}">
+        <link rel="stylesheet" href="{% static 'administration/css/skins/default.css' %}">
+        <link rel="stylesheet" href="{% static 'administration/css/custom.css' %}">
+        <script src="{% static 'administration/vendor/modernizr/modernizr.js' %}" defer></script>
+
+	</head>
+	<body>
+		<section class="body-sign">
+			<div class="center-sign">
+				<div class="panel card-sign">
+					<div class="card-title-sign mt-3 text-end">
+						<h2 class="title text-uppercase font-weight-bold m-0" style="background-color: black;"><i class="bx bx-user-circle me-1 text-6 position-relative top-5"></i> Iniciar sesión</h2>
+					</div>
+					<div class="card-body" style="border-top-color: black">
+						<form method="post" novalidate>
+							{% csrf_token %}
+
+							<div>
+								{% for error in form.non_field_errors %}
+                  <label class="error">{{ error}}</label>
+								{% endfor %}
+							</div>
+
+							<div class="form-group mb-3">
+								<label>Correo electrónico</label>
+								<div class="input-group">
+									{{ form.username }}
+									<span class="input-group-text">
+										<i class="bx bx-user text-4"></i>
+									</span>
+								</div>
+								{% for error in form.username.errors %}
+                  <label class="error">{{ error}}</label>
+								{% endfor %}
+							</div>
+
+							<div class="form-group mb-3">
+								<div class="clearfix">
+									<label class="float-start">Contraseña</label>
+                  <a href="{% url 'password_reset' %}" class="float-end">¿Olvidaste tu contraseña?</a>
+								</div>
+								<div class="input-group">
+									{{ form.password }}
+									<span class="input-group-text">
+										<i class="bx bx-lock text-4"></i>
+									</span>
+								</div>
+								{% for error in form.username.errors %}
+                <label class="error">{{ error}}</label>
+								{% endfor %}
+							</div>
+              <input type="hidden" name="next" value="{{ next }}">
+							<div class="row">
+								<div class="col-sm-8">
+									<div class="checkbox-custom checkbox-default"></div>
+								</div>
+								<div class="col-sm-4 text-end">
+									<button type="submit" class="btn btn-primary mt-2" style="background-color: black;">Entrar</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+
+        <script src="{% static 'administration/vendor/jquery/jquery.js' %}" defer></script>
+        <script src="{% static 'administration/vendor/jquery-browser-mobile/jquery.browser.mobile.js' %}" defer></script>
+        <script src="{% static 'administration/vendor/popper/umd/popper.min.js' %}" defer></script>
+        <script src="{% static 'administration/vendor/bootstrap/js/bootstrap.bundle.min.js' %}" defer></script>
+        <script src="{% static 'administration/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js' %}" defer></script>
+        <script src="{% static 'administration/vendor/common/common.js' %}" defer></script>
+        <script src="{% static 'administration/vendor/nanoscroller/nanoscroller.js' %}" defer></script>
+        <script src="{% static 'administration/vendor/magnific-popup/jquery.magnific-popup.js' %}" defer></script>
+        <script src="{% static 'administration/vendor/jquery-placeholder/jquery.placeholder.js' %}" defer></script>
+        <script src="{% static 'administration/js/theme.js' %}" defer></script>
+        <script src="{% static 'administration/js/custom.js' %}" defer></script>
+        <script src="{% static 'administration/js/theme.init.js' %}" defer></script>
+	</body>
+</html>
+
+
+
+

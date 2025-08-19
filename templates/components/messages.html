@@ -1,0 +1,18 @@
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-dismissible fade show
+            {% if message.tags == 'success' %}alert-success{% endif %}
+            {% if message.tags == 'error' %}alert-danger{% endif %}
+            {% if message.tags == 'warning' %}alert-warning{% endif %}
+            {% if message.tags == 'info' %}alert-info{% endif %}"
+            role="alert">
+            <strong>{{ message }}</strong>
+            {% if form and form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <div><label>{{ error }}</label></div>
+                {% endfor %}
+            {% endif %}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+{% endif %}

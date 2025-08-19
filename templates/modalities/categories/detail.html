@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Admin Aula 286{% endblock %}
+
+{% block extra_css %}{% endblock %}
+
+{% block page_header %}Ver categoría{% endblock %}
+
+{% block breadcrumbs %}
+    <li><span><a href="{% url "modalities:category_list" %}">Categorías</a></span></li>
+    <li><span>Ver</span></li>
+{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between flex-wrap">
+        <!-- {% if perms.secretaries.change_secretary %} -->
+            <a class="btn btn-primary mb-2" href="{% url 'modalities:category_update' item.id %}">Editar</a>
+        <!-- {% endif %} -->
+        <!-- {% if perms.secretaries.delete_secretary %} -->
+            <a class="btn btn-danger mb-2" href="{% url 'modalities:category_delete' item.id %}" >Eliminar</a>
+        <!-- {% endif %} -->
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <section class="card">
+                <div class="card-body">
+                    <div class="form-horizontal form-bordered">
+                        {% for label, value, type in item.get_detail_fields %}
+                            {% include "components/detail/field.html" with label=label value=value type=type %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'administration/vendor/autosize/autosize.js' %}" defer></script>
+{% endblock %}

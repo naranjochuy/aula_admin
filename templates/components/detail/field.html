@@ -1,0 +1,27 @@
+<div class="form-group row pb-4">
+    <label class="col-lg-4 control-label text-lg-end pt-2">{{ label }}</label>
+    <label class="col-lg-8 control-label pt-2">
+        {% if type == "date" %}
+            {{ value|date:"d/m/Y" }}
+        {% elif type == "datetime" %}
+            {{ value|date:"d/m/Y H:i" }}
+        {% elif type == "boolean" %}
+            {{ value|yesno:"Sí,No" }}
+        {% elif type == "decimal" %}
+            {{ value|stringformat:".2f"|default_if_none:"" }}
+        {% elif type == "image" %}
+            {% if value %}
+                <div class="col-lg-8">
+                    <a href="{{ value.url}}" data-plugin-lightbox data-plugin-options='{ "type":"image" }'>
+                        <img class="img-fluid" src="{{ value.url }}" width="145">
+                    </a>
+                </div>
+            {% else %}
+                -
+            {% endif %}
+        {% else %}
+            {{ value|default_if_none:"" }}
+        {% endif %}
+    </label>
+</div>
+  
